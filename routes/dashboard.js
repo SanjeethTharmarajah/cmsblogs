@@ -4,7 +4,7 @@ const router = express.Router();
 const Post = require('../models/Post');
 
 // Dashboard page
-router.get('/api/', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const userId = req.session.userId; // store user ID from the session
 
@@ -35,12 +35,12 @@ router.get('/api/', async (req, res) => {
 
 // Create new post
 // Define the GET route for displaying the create post form
-router.get('/api/createpost', (req, res) => {
+router.get('/createpost', (req, res) => {
   // Render the create post form view
   res.render('createpost'); // Make sure you have a corresponding view file
 });
 
-router.post('/api/createpost', async (req, res) => {
+router.post('/createpost', async (req, res) => {
   const userId = req.session.userId;
   const { title, content } = req.body;
 
@@ -50,11 +50,11 @@ router.post('/api/createpost', async (req, res) => {
     userId
   });
 
-  res.redirect('/api/dashboard');
+  res.redirect('/dashboard');
 });
 
 // Edit post
-router.get('/api/edit-post/:id', async (req, res) => {
+router.get('/edit-post/:id', async (req, res) => {
   const userId = req.session.userId; 
   if (userId !== undefined) {
     const postId = req.params.id;
@@ -65,7 +65,7 @@ router.get('/api/edit-post/:id', async (req, res) => {
 
     res.render('edit-post', { posts2 });
     
-    router.post('/api/edit-post/:id', async (req, res) => {
+    router.post('/edit-post/:id', async (req, res) => {
     const postId = req.params.id;
     const { title, content } = req.body;
 
@@ -74,7 +74,7 @@ router.get('/api/edit-post/:id', async (req, res) => {
     post.content = content;
     await post.save();
 
-    res.redirect('/api/dashboard');
+    res.redirect('/dashboard');
     });
   }
   else {
@@ -84,12 +84,12 @@ router.get('/api/edit-post/:id', async (req, res) => {
   });
 
 // Delete post
-router.get('/api/delete-post/:id', async (req, res) => {
+router.get('/delete-post/:id', async (req, res) => {
   const postId = req.params.id;
   const post = await Post.findByPk(postId);
   await post.destroy();
   
-  res.redirect('/api/dashboard');
+  res.redirect('/dashboard');
 });
 
 

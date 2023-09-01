@@ -4,7 +4,7 @@ const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 
 // View individual post
-router.get('/api/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   const postId = req.params.id;
   const post = await Post.findByPk(postId);
   const comments = await Comment.findAll({ where: { postId } });
@@ -12,7 +12,7 @@ router.get('/api/:id', async (req, res) => {
 });
 
 // Add comment
-router.post('/api/add-comment', async (req, res) => {
+router.post('/add-comment', async (req, res) => {
   const postId = req.body.postId;
   const content = req.body.content;
 
@@ -21,7 +21,7 @@ router.post('/api/add-comment', async (req, res) => {
     content
   });
 
-  res.redirect(`/api/posts/${postId}`);
+  res.redirect(`/posts/${postId}`);
 });
 
 module.exports = router;
