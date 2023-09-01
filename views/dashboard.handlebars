@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <!-- Include your CSS and other head content here -->
+</head>
+<body>
+  <nav>
+        <div class="container">
+            <ul>
+                <li> <h1>Dashboard</h1></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <br><br>
+  <a href="/dashboard/createpost">
+  <button>Create New Post</button>
+  </a>
+<br><br>
+  {{#each posts2}}
+  <div class="post">
+    <h2><a href="dashboard/post/{{id}}">{{title}}</a></h2>
+    <p>{{content}}</p>
+    <a href="/dashboard/edit-post/{{id}}">Edit</a> | <a href="/dashboard/delete-post/{{id}}">Delete</a>
+  </div>
+  {{/each}}
+
+
+</body>
+</html>

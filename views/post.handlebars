@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{post.title}} - CMS Blog</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="/">Home</a></li>
+                {{#if userId}}
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/auth/logout">Logout</a></li>
+                {{else}}
+                <li><a href="/auth/login">Login</a></li>
+                <li><a href="/auth/signup">Signup</a></li>
+                {{/if}}
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <article class="post">
+                <h1>{{post.title}}</h1>
+                <p class="post-content">{{post.content}}</p>
+                <h2>Comments</h2>
+                {{#each comments}}
+                <div class="comment">
+                    <p>{{content}}</p>
+                    <p class="comment-info">By {{username}} on {{createdAt}}</p>
+                </div>
+                {{/each}}
+                <h2>Add a Comment</h2>
+                <form method="POST" action="/posts/add-comment">
+                    <input type="hidden" name="postId" value="{{post.id}}">
+                    <div class="form-group">
+                        <label for="comment">Write your comment:</label>
+                        <textarea name="content" id="comment" rows="4" required></textarea>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </article>
+        </div>
+    </main>
+</body>
+</html>
