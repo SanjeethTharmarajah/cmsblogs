@@ -4,12 +4,12 @@ const router = express.Router();
 const User = require('../models/User');
 
 // Signup page
-router.get('/signup', (req, res) => {
+router.get('/api/signup', (req, res) => {
   res.render('signup');
 });
 
 // User signup
-router.post('/signup', async (req, res) => {
+router.post('/api/signup', async (req, res) => {
   const { username, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -18,19 +18,19 @@ router.post('/signup', async (req, res) => {
       username,
       password: hashedPassword
     });
-    res.redirect('/auth/login');
+    res.redirect('/api/auth/login');
   } catch (error) {
     res.render('signup', { error: 'Username already exists' });
   }
 });
 
 // Login page
-router.get('/login', (req, res) => {
+router.get('/api/login', (req, res) => {
   res.render('login');
 });
 
 // User login
-router.post('/login', async (req, res) => {
+router.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
 
   const user = await User.findOne({ where: { username } });
@@ -42,7 +42,7 @@ router.post('/login', async (req, res) => {
       req.session.userId = user.id;
     });
 
-    res.redirect('/dashboard');
+    res.redirect('/api/dashboard');
     
   } else {
     res.render('login', { error: 'Invalid credentials' });
@@ -50,9 +50,9 @@ router.post('/login', async (req, res) => {
 });
 
 // Logout
-router.get('/logout', (req, res) => {
+router.get('/api/logout', (req, res) => {
   req.session.destroy();
-  res.redirect('/');
+  res.redirect('/api/');
 });
 
 module.exports = router;
