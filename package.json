@@ -2,7 +2,7 @@
   "name": "ch12-c",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "engines": {
     "node": "16.20.1"
   },

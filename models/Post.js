@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const User = require('./User');
+//const User = require('./User');
 class Posts extends Model {}
 
 Posts.init(
@@ -10,6 +10,14 @@ Posts.init(
       allowNull: false,
     },
     content: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    user: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -23,6 +31,6 @@ Posts.init(
 );
 
 // Associate post with user
-Posts.belongsTo(User);
+//Posts.belongsTo(User);
 
 module.exports = Posts;

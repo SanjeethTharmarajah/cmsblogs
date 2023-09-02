@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const User = require('./User');
-const Post = require('./Post');
+//const User = require('./User');
+//const Post = require('./Post');
 
 class Comments extends Model {}
 
@@ -11,6 +11,14 @@ Comments.init(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    post_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    user: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   },
   {
     sequelize,
@@ -22,7 +30,7 @@ Comments.init(
 
 
 // Associate comment with user and post
-Comments.belongsTo(User);
-Comments.belongsTo(Post);
+//Comments.belongsTo(User);
+//Comments.belongsTo(Post);
 
 module.exports = Comments;

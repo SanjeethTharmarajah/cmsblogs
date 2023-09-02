@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-
 const Post = require('../models/Post');
+const Comment = require('../models/Comment');
 
 // Dashboard page
 router.get('/', async (req, res) => {
@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     if (userId !== undefined) {
       const posts = await Post.findAll({
         where: {
-          userId: userId // Use the retrieved userId
+          user: userId // Use the retrieved userId
         },
       });
       const posts2 = posts.map((posts) =>
@@ -36,21 +36,35 @@ router.get('/', async (req, res) => {
 // Create new post
 // Define the GET route for displaying the create post form
 router.get('/createpost', (req, res) => {
-  // Render the create post form view
-  res.render('createpost'); // Make sure you have a corresponding view file
+  const userId = req.session.userId;
+  if (userId !== undefined) {
+    // Render the create post form view
+    res.render('createpost'); // Make sure you have a corresponding view file
+  }
+  else {
+     // Handle case where userId is undefined
+     res.status(403).send('<center><br><br><font size="5">Please, go back and login first ! <br><br> <a href="/">Go Back</a></font></center>');
+  }
 });
 
 router.post('/createpost', async (req, res) => {
   const userId = req.session.userId;
   const { title, content } = req.body;
+   
+  if (userId !== undefined) {
+    await Post.create({
+      title,
+      content,
+      user:userId,
+      username:req.session.userName
+    });
 
-  await Post.create({
-    title,
-    content,
-    userId
-  });
-
-  res.redirect('/dashboard');
+    res.redirect('/dashboard');
+  }
+  else {
+    // Handle case where userId is undefined
+    res.status(403).send('<center><br><br><font size="5">Please, go back and login first ! <br><br> <a href="/">Go Back</a></font></center>');
+  }
 });
 
 // Edit post
@@ -85,12 +99,101 @@ router.get('/edit-post/:id', async (req, res) => {
 
 // Delete post
 router.get('/delete-post/:id', async (req, res) => {
-  const postId = req.params.id;
-  const post = await Post.findByPk(postId);
-  await post.destroy();
-  
-  res.redirect('/dashboard');
+  const userId = req.session.userId; 
+  if (userId !== undefined) {
+    const postId = req.params.id;
+    const post = await Post.findByPk(postId);
+    await post.destroy();
+    
+    res.redirect('/dashboard');
+  }
+  else {
+    // Handle case where userId is undefined
+    res.status(403).send('<center><br><br><font size="5">Please, go back and login first ! <br><br> <a href="/">Go Back</a></font></center>');
+  }
 });
 
+// Add a comment to a post (requires authentication)
+router.post('/add/:postId', async (req, res) => {
+  const userId = req.session.userId;
+  const postId = req.params.postId;
+  const { content } = req.body;
+ 
+  if (userId !== undefined) {
+    await Comment.create({
+      content,
+      postId,
+      userId,
+    });
+
+    res.redirect(`/posts/view/${postId}`);
+  } 
+  else {
+    // Handle case where userId is undefined
+    res.status(403).send('<center><br><br><font size="5">Please, go back and login first ! <br><br> <a href="/">Go Back</a></font></center>');
+  }
+});
+
+// Delete a comment (requires authentication)
+router.get('/delete/:commentId', async (req, res) => {
+  const commentId = req.params.commentId;
+  const userId = req.session.userId;
+  if (userId !== undefined) {
+    const comment = await Comment.findByPk(commentId);
+
+    if (!comment) {
+      return res.redirect('/'); // Handle if the comment doesn't exist
+    }
+
+    await comment.destroy();
+    res.redirect('/');
+  } 
+  else {
+    // Handle case where userId is undefined
+    res.status(403).send('<center><br><br><font size="5">Please, go back and login first ! <br><br> <a href="/">Go Back</a></font></center>');
+  }
+});
+
+// Add comment
+router.post('/post/:id', async (req, res) => {
+  const userId = req.session.userId; 
+  if (userId !== undefined) {
+      const postId = req.body.postId;
+      const content = req.body.content;
+      const commentsurl = req.body.commentsurl;
+      await Comment.create({
+        post_id: postId,
+        content,
+        user: req.session.userName
+      });
+      req.session.commentsid = postId;
+      req.session.save(() => {
+        req.session.commentsid = postId;
+      });
+      //res.redirect(`/posts/${postId}`);
+      res.redirect(commentsurl);
+  }
+  else {
+    // Handle case where userId is undefined
+    res.status(403).send('<center><br><br><font size="5">Please, go back and login first ! <br><br> <a href="/">Go Back</a></font></center>');
+  }
+});
+
+
+// View individual post
+router.get('/post/:id', async (req, res) => {
+  const postId = req.params.id;
+  const post = await Post.findByPk(postId);
+  const comments = await Comment.findAll({ where: { post_id: postId } });
+  const comments2 = comments.map((comments) =>
+  comments.get({ plain: true })
+  );
+  const post2 = await Post.findByPk(postId);
+  const posts = await Post.findAll({ where: { id: postId } });
+  const post3 = posts.map((posts) =>
+  posts.get({ plain: true })
+  );
+  res.render('comments', { post3, comments2 });
+});
 
 module.exports = router;

@@ -9,7 +9,8 @@
     <br><br>
 {{#each posts2}}
 <div class="post">
-    <h2>{{title}}</h2>
+    <h2><a href="/posts/{{id}}">{{title}}</a></h2>
     <p>{{content}}</p>
+    <p>Posted By: {{username}}</p>
 </div>
 {{/each}}
