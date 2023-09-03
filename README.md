@@ -1,4 +1,4 @@
-![image](https://github.com/SanjeethTharmarajah/cmsblogs/assets/130941252/0895b18b-4617-42f0-98e6-8ef4fa21338e)# 14 Model-View-Controller (MVC): Tech Blog
+# 14 Model-View-Controller (MVC): Tech Blog
 
 ## Your Task
 
