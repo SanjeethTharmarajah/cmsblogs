@@ -1,4 +1,4 @@
-# 14 Model-View-Controller (MVC): Tech Blog
+![image](https://github.com/SanjeethTharmarajah/cmsblogs/assets/130941252/0895b18b-4617-42f0-98e6-8ef4fa21338e)# 14 Model-View-Controller (MVC): Tech Blog
 
 ## Your Task
 
@@ -96,4 +96,9 @@ npm install handlebars@4.7.6 express@4.17.1 express-session@1.17.1 express-handl
 ## Usage
 
 ![image](https://github.com/SanjeethTharmarajah/cmsblogs/assets/130941252/2555ed09-28a9-4a5b-8174-0238576246bb)
+
+
+To see live code in action see below link
+
+https://blogs2-891bb8c15292.herokuapp.com/
 
