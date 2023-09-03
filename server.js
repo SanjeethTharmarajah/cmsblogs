@@ -1,3 +1,4 @@
+// loads required modules
 const path = require('path');
 require('dotenv').config(); // Load environment variables from .env file
 const express = require('express');
