@@ -93,3 +93,7 @@ npm init
 
 npm install handlebars@4.7.6 express@4.17.1 express-session@1.17.1 express-handlebars@5.2.0 body-parser sequelize mysql2 bcrypt dotenv
 
+## Usage
+
+![image](https://github.com/SanjeethTharmarajah/cmsblogs/assets/130941252/2555ed09-28a9-4a5b-8174-0238576246bb)
+
