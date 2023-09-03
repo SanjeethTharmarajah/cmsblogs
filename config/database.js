@@ -1,8 +1,9 @@
+// load require modules
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
 let sequelize;
-
+// set jawsdb or local databse
 if (process.env.JAWSDB_URL) {
   sequelize = new Sequelize(process.env.JAWSDB_URL);
 } else {
@@ -17,5 +18,5 @@ if (process.env.JAWSDB_URL) {
     }
   );
 }
-
+// exports sequelize 
 module.exports = sequelize;

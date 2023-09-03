@@ -1,3 +1,4 @@
+// loads required modules
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
@@ -46,11 +47,11 @@ router.get('/createpost', (req, res) => {
      res.status(403).send('<center><br><br><font size="5">Please, go back and login first ! <br><br> <a href="/">Go Back</a></font></center>');
   }
 });
-
+// cretaes new post
 router.post('/createpost', async (req, res) => {
   const userId = req.session.userId;
   const { title, content } = req.body;
-   
+  //  checks user is logged in
   if (userId !== undefined) {
     await Post.create({
       title,
@@ -195,5 +196,5 @@ router.get('/post/:id', async (req, res) => {
   );
   res.render('comments', { post3, comments2 });
 });
-
+// exports router
 module.exports = router;

@@ -1,10 +1,9 @@
+// load required modules
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-//const User = require('./User');
-//const Post = require('./Post');
-
+// class comments
 class Comments extends Model {}
-
+// on init cretae table
 Comments.init(
   {
     content: {
@@ -28,9 +27,5 @@ Comments.init(
   }
 );
 
-
-// Associate comment with user and post
-//Comments.belongsTo(User);
-//Comments.belongsTo(Post);
-
+// exports comments
 module.exports = Comments;

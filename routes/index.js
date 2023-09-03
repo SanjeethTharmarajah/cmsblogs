@@ -1,3 +1,4 @@
+// loads required modules
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
@@ -10,5 +11,5 @@ router.get('/', async (req, res) => {
     );
   res.render('home',  {posts2} );
 });
-
+// exports router
 module.exports = router;

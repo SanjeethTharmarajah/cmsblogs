@@ -1,3 +1,4 @@
+// loads required module
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
@@ -56,5 +57,5 @@ router.get('/logout', (req, res) => {
   res.send('<center><br><br><font size="5">You are logged out ! <br><br> <a href="/">Go Home</a></font></center>');
  
 });
-
+// exports router
 module.exports = router;

@@ -1,8 +1,9 @@
+// load reqired modules
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-//const User = require('./User');
+//class post;
 class Posts extends Model {}
-
+// create table on init
 Posts.init(
   {
     title: {
@@ -30,7 +31,5 @@ Posts.init(
   }
 );
 
-// Associate post with user
-//Posts.belongsTo(User);
-
+//eports posts
 module.exports = Posts;

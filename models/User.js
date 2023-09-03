@@ -1,8 +1,10 @@
+// load required modules
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const User = require('./User');
+// class users
 class Users extends Model {}
-
+// cretae table user on init
 Users.init(
   {
     username: {
@@ -22,8 +24,6 @@ Users.init(
     modelName: 'users',
   }
 );
-
-
-
+// exports users
 module.exports = Users;
 
