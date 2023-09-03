@@ -88,3 +88,8 @@ THEN coded to view posts and comments but I am prompted to log in again before I
 
 
 ## Installtion
+
+npm init
+
+npm install handlebars@4.7.6 express@4.17.1 express-session@1.17.1 express-handlebars@5.2.0 body-parser sequelize mysql2 bcrypt dotenv
+
