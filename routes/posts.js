@@ -42,5 +42,5 @@ router.post('/add-comment', async (req, res) => {
       res.status(403).send('<center><br><br><font size="5">Please, go back and login first ! <br><br> <a href="/">Go Back</a></font></center>');
     }
 });
-
+// exports router
 module.exports = router;
